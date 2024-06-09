@@ -1,24 +1,7 @@
 from urllib.parse import urlencode
 import matplotlib.pyplot as plt
 from functools import reduce
-from io import BytesIO
 import pandas as pd
-import base64
-
-
-def plot_to_base64(plt):
-    buffer = BytesIO()
-    plt.savefig(buffer, format='png')
-    buffer.seek(0)
-    image_base64 = base64.b64encode(buffer.read()).decode('utf-8')
-    return image_base64
-
-
-def save_base64_image(base64_string, file_name):
-    image_data = base64.b64decode(base64_string)
-    with open(file_name, "wb") as file:
-        file.write(image_data)
-
 
 def get_ecb_data(serie: str, **kwargs):
     api_url = "https://data-api.ecb.europa.eu/service/data"
@@ -26,9 +9,8 @@ def get_ecb_data(serie: str, **kwargs):
     url = f"{api_url}/{flow_ref}/{key}?{urlencode(kwargs)}"
     return pd.read_csv(url)[["TIME_PERIOD", "OBS_VALUE"]]
 
-
 df_df = get_ecb_data(serie="FM.D.U2.EUR.4F.KR.DFR.LEV", format="csvdata")
-df_mro = get_ecb_data(serie="FM.D.U2.EUR.4F.KR.MRR_FR.LEV", format="csvdata")
+df_mro = get_ecb_data(serie="FM.D.U2.EUR.4F.KR.MRR_RT.LEV", format="csvdata")
 df_mlf = get_ecb_data(serie="FM.D.U2.EUR.4F.KR.MLFR.LEV", format="csvdata")
 
 df = reduce(lambda left, right: pd.merge(left, right, on="TIME_PERIOD", how="outer"), [df_df, df_mro, df_mlf])
@@ -46,9 +28,7 @@ plt.ylabel('Rate')
 plt.title('ECB Interest Rates Over Time')
 plt.legend()
 plt.grid(True)
-
-image_base64 = plot_to_base64(plt)
-save_base64_image(image_base64, 'ecb/ecb.png')
+plt.savefig("ecb/ecb.png", dpi=1200, bbox_inches='tight')
 
 for col in df.columns[1:]:
     df[col] = df[col].diff()
@@ -78,8 +58,7 @@ for col in df.columns[1:-1]:
     plt.title(f'Number of {col} Changes per Year')
     plt.legend()
     plt.grid(True)
-    image_base64 = plot_to_base64(plt)
-    save_base64_image(image_base64, f'ecb/ecb{i}.png')
+    plt.savefig(f'ecb/ecb{i}.png', dpi=1200, bbox_inches='tight')
     i += 1
 
 i = 1
@@ -94,6 +73,5 @@ for col in df.columns[1:-1]:
     plt.title(f'Average {col} Change per Year')
     plt.legend()
     plt.grid(True)
-    image_base64 = plot_to_base64(plt)
-    save_base64_image(image_base64, f'ecb/ecb_avg{i}.png')
+    plt.savefig(f'ecb/ecb_avg{i}.png', dpi=1200, bbox_inches='tight')
     i += 1

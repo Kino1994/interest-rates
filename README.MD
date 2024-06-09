@@ -3,7 +3,6 @@
 ## [ECB Interest Rates](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html)
 
 ![ECB Rates](ecb/ecb.png)
-
 ![Number of Deposit Facility Changes](ecb/ecb1.png)
 ![Main Number Refinancing Operations Changes](ecb/ecb2.png)
 ![Number of Marginal Lending Facility Changes](ecb/ecb3.png)
