@@ -48,7 +48,7 @@ plt.legend()
 plt.grid(True)
 
 image_base64 = plot_to_base64(plt)
-save_base64_image(image_base64, './ecb/ecb.png')
+save_base64_image(image_base64, 'ecb/ecb.png')
 
 for col in df.columns[1:]:
     df[col] = df[col].diff()
@@ -60,7 +60,6 @@ df['Year'] = df['Date'].dt.year
 changes_non_zero = df != 0
 
 annual_rate_increases = changes_non_zero.groupby(df['Year']).sum()
-average_rate_increases = df.groupby(df['Year']).mean()
 
 colors = {
     "Deposit Facility": "blue",
@@ -80,13 +79,14 @@ for col in df.columns[1:-1]:
     plt.legend()
     plt.grid(True)
     image_base64 = plot_to_base64(plt)
-    save_base64_image(image_base64, f'./ecb/ecb{i}.png')
+    save_base64_image(image_base64, f'ecb/ecb{i}.png')
     i += 1
 
 i = 1
 
 for col in df.columns[1:-1]:
     plt.figure(figsize=(14, 8))
+    average_rate_increases = df[df[col] != 0.00].groupby('Year').mean()
     plt.step(average_rate_increases.index, average_rate_increases[col], label=f'Average {col} Increase', where='post',
              marker='o', color=colors[col])
     plt.xlabel('Year')
@@ -95,5 +95,5 @@ for col in df.columns[1:-1]:
     plt.legend()
     plt.grid(True)
     image_base64 = plot_to_base64(plt)
-    save_base64_image(image_base64, f'./ecb/ecb_avg{i}.png')
+    save_base64_image(image_base64, f'ecb/ecb_avg{i}.png')
     i += 1
