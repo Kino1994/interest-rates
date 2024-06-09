@@ -84,3 +84,7 @@
 - On 8 October 2008 the ECB announced that, starting from the operation to be settled on 15 October 2008, the weekly main refinancing operations would be carried out through a fixed-rate tender procedure with full allotment at the interest rate on the main refinancing operations. This change overrode the previous decision (made on the same day) to cut by 50 basis points the minimum bid rate on the main refinancing operations conducted as variable rate tenders.
 
 - On 13 March 2024 the ECB announced changes to its operational framework for implementing monetary policy. The spread between the rate on the main refinancing operations and the deposit facility rate will be reduced to 15 basis points. The rate on the marginal lending facility will also be adjusted such that the spread between the rate on the marginal lending facility and the rate on the main refinancing operations will remain unchanged at 25 basis points. These changes will come into effect on 18 September 2024. The main refinancing operations will continue to be conducted through fixed-rate tenders with full allotment against broad collateral.
+
+## [FRED Interest Rates](https://fred.stlouisfed.org/series/DFF)
+
+![FED Rates](fed/fed.png)
